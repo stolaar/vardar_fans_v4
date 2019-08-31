@@ -11,6 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { IonicStorageModule } from "@ionic/storage";
+import { AuthGuardService } from "./services/auth-guard.service";
 
 import firebaseConfig from "../config/firebase";
 
@@ -28,7 +29,8 @@ import firebaseConfig from "../config/firebase";
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
