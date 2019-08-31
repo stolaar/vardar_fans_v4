@@ -1,5 +1,7 @@
 {
   "name": "vardar_fans_v4",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
