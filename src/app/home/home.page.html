@@ -1,21 +1,23 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon color="light" slot="icon-only" name="contact"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      USERNAME
     </ion-title>
-    <ion-button (click)="logout()">Logout</ion-button>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon color="light" slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
-    The world is your oyster.
-    <p>
-      If you get lost, the
-      <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/"
-        >docs</a
-      >
-      will be your guide.
-    </p>
+    Dashboard
   </div>
 </ion-content>

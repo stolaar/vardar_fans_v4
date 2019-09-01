@@ -1,6 +1,9 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { NavController } from "@ionic/angular";
+import { Observable, Subscriber } from "rxjs";
+import User from "src/models/User";
+import { UsersService } from "../services/users.service";
 
 @Component({
   selector: "app-home",
@@ -8,7 +11,15 @@ import { NavController } from "@ionic/angular";
   styleUrls: ["home.page.scss"]
 })
 export class HomePage {
-  constructor(private storage: Storage, private navCtrl: NavController) {}
+  private user: Observable<User>;
+
+  constructor(
+    private storage: Storage,
+    private navCtrl: NavController,
+    private userService: UsersService
+  ) {
+    // Get the user from the db
+  }
 
   logout() {
     this.storage.remove("user").then(() => {

@@ -10,6 +10,10 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import {
+  AngularFirestoreModule,
+  FirestoreSettingsToken
+} from "@angular/fire/firestore";
 import { IonicStorageModule } from "@ionic/storage";
 import { AuthGuardService } from "./services/auth-guard.service";
 
@@ -24,13 +28,15 @@ import firebaseConfig from "../config/firebase";
     AngularFireModule.initializeApp(firebaseConfig),
     AppRoutingModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AuthGuardService
+    AuthGuardService,
+    { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import { AuthService } from "../services/auth.service";
 import User from "../../models/User";
 import { NavController } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-login",
@@ -10,7 +11,7 @@ import { Storage } from "@ionic/storage";
   styleUrls: ["./login.page.scss"]
 })
 export class LoginPage implements OnInit {
-  User: {} = User;
+  User = {} as User;
   constructor(
     public authService: AuthService,
     private navCtrl: NavController,

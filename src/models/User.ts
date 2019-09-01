@@ -1,6 +1,9 @@
-const user = {
-  username: "",
-  password: "",
-  confirmPassword: ""
-};
-export default user;
+interface User {
+  id?: string;
+  username: string;
+  password?: string;
+  confirmPassword?: string;
+  userID: number;
+  role?: string;
+}
+export default User;
