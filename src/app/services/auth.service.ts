@@ -11,7 +11,7 @@ export class AuthService {
   async login(username, password) {
     try {
       return await this.afAuth.auth.signInWithEmailAndPassword(
-        username + "@vardarfans.com",
+        username.trim() + "@vardarfans.com",
         password
       );
     } catch (err) {

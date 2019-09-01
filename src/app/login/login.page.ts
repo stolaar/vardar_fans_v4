@@ -23,9 +23,7 @@ export class LoginPage implements OnInit {
     const { username, password }: any = this.User;
     try {
       const loginResult: any = await this.authService.login(username, password);
-      console.log(loginResult);
       if (loginResult) {
-        console.log(loginResult.user);
         this.storage.set("user", {
           email: loginResult.user.email,
           uid: loginResult.user.uid

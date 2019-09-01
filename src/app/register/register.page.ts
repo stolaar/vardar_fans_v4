@@ -17,7 +17,10 @@ export class RegisterPage implements OnInit {
     const { username, password, confirmPassword }: any = this.User;
     try {
       password === confirmPassword &&
-        (await this.authService.register({ username, password }));
+        (await this.authService.register({
+          username: username.trim(),
+          password
+        }));
     } catch (err) {
       console.log(err.message);
     }
