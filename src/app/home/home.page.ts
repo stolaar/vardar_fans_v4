@@ -11,7 +11,7 @@ import { UsersService } from "../services/users.service";
   styleUrls: ["home.page.scss"]
 })
 export class HomePage {
-  private user: Observable<User>;
+  User = {} as User;
 
   constructor(
     private storage: Storage,
@@ -19,6 +19,16 @@ export class HomePage {
     private userService: UsersService
   ) {
     // Get the user from the db
+  }
+  ngOnInit() {
+    this.storage
+      .get("user")
+      .then(userData => {
+        this.userService.getUser(userData.uid).subscribe(user => {
+          this.User = user;
+        });
+      })
+      .catch(err => console.log(err.message));
   }
 
   logout() {
