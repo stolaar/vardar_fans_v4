@@ -20,7 +20,11 @@ const routes: Routes = [
     loadChildren: "./register/register.module#RegisterPageModule",
     canActivate: [AuthGuardService]
   },
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' }
+  {
+    path: "profile",
+    loadChildren: "./profile/profile.module#ProfilePageModule",
+    canActivate: [AuthGuardService]
+  }
 ];
 
 @NgModule({

@@ -8,21 +8,21 @@
   <ion-item>
     <ion-icon slot="start" name="person"> </ion-icon>
     <ion-label>
-      Drahma
+      {{ User.name }}
     </ion-label>
   </ion-item>
 
   <ion-item>
     <ion-icon slot="start" name="mail"> </ion-icon>
     <ion-label>
-      drahma@vardarfans.com
+      {{ User.username }}
     </ion-label>
   </ion-item>
 
   <ion-item>
     <ion-icon slot="start" name="finger-print"> </ion-icon>
     <ion-label>
-      1234
+      {{ User.userID }}
     </ion-label>
   </ion-item>
 
@@ -31,7 +31,11 @@
       <ion-card-subtitle>Create event</ion-card-subtitle>
       <ion-card-title>
         <ion-item>
-          <ion-input placeholder="Matchup" type="text"></ion-input>
+          <ion-input
+            placeholder="Matchup"
+            type="text"
+            [ngModel]="Event.matchup"
+          ></ion-input>
         </ion-item>
       </ion-card-title>
     </ion-card-header>
@@ -40,29 +44,47 @@
       <ion-item class="activated">
         <ion-icon name="calendar" slot="start"></ion-icon>
         <ion-item>
-          <ion-input type="date"></ion-input>
+          <ion-input type="date" [(ngModel)]="Event.date"></ion-input>
         </ion-item>
       </ion-item>
       <ion-item class="activated">
         <ion-icon name="clock" slot="start"></ion-icon>
         <ion-item>
-          <ion-input placeholder="Time" type="text"></ion-input>
+          <ion-input
+            placeholder="Time"
+            type="text"
+            [(ngModel)]="Event.time"
+          ></ion-input>
         </ion-item>
       </ion-item>
       <ion-item class="activated">
         <ion-icon name="pricetag" slot="start"></ion-icon>
         <ion-item>
-          <ion-input placeholder="Price" type="text"></ion-input>
+          <ion-input
+            placeholder="Price"
+            type="text"
+            [(ngModel)]="Event.price"
+          ></ion-input>
         </ion-item>
       </ion-item>
       <ion-item class="activated">
         <ion-icon name="pin" slot="start"></ion-icon>
         <ion-item>
-          <ion-input placeholder="Restaurant/Bar" type="text"></ion-input>
+          <ion-input
+            placeholder="Restaurant/Bar"
+            type="text"
+            [(ngModel)]="Event.place"
+          ></ion-input>
         </ion-item>
       </ion-item>
 
-      <ion-button fill="outline" color="danger" slot="start">Submit</ion-button>
+      <ion-button
+        fill="outline"
+        color="danger"
+        slot="start"
+        (click)="addEvent()"
+        >Submit</ion-button
+      >
     </ion-card-content>
   </ion-card>
 </ion-content>
