@@ -48,7 +48,6 @@ export class EventsService {
   }
 
   addEvent(event: Event, id: string): Promise<void> {
-    console.log(id, event);
     return this.eventsCollection.doc(id).set(event);
   }
 }

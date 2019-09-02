@@ -4,6 +4,7 @@ import Event from "src/models/Event";
 import { UsersService } from "../services/users.service";
 import { EventsService } from "../services/events.service";
 import { Storage } from "@ionic/storage";
+import { ToastController } from "@ionic/angular";
 
 @Component({
   selector: "app-profile",
@@ -17,7 +18,8 @@ export class ProfilePage implements OnInit {
   constructor(
     private storage: Storage,
     private userService: UsersService,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    public toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -31,7 +33,19 @@ export class ProfilePage implements OnInit {
       .catch(err => console.log(err.message));
   }
 
-  addEvent() {
-    this.eventsService.addEvent(this.Event, this.User.id);
+  async addEvent() {
+    try {
+      await this.eventsService.addEvent(this.Event, this.User.id);
+      return this.addEventFeedback("Event has been created!");
+    } catch (err) {
+      return this.addEventFeedback("Error while creating the event!");
+    }
+  }
+  async addEventFeedback(message: any) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
   }
 }
