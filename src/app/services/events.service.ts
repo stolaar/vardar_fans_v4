@@ -24,6 +24,7 @@ export class EventsService {
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
+          data.id = a.payload.doc.id;
           const id = a.payload.doc.id;
           return { id, ...data };
         });
@@ -49,5 +50,15 @@ export class EventsService {
 
   addEvent(event: Event, id: string): Promise<void> {
     return this.eventsCollection.doc(id).set(event);
+  }
+
+  async subscribeToEvent(event: any, user: any) {
+    try {
+      const usersGoing = event.usersGoing ? [...event.usersGoing] : [];
+      usersGoing.push(user);
+      await this.eventsCollection.doc(event.id).update({ usersGoing });
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 }

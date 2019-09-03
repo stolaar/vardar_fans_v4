@@ -1,5 +1,6 @@
 import User from "./User";
 interface Event {
+  id?: string;
   matchup: string;
   date: Date;
   time: string;
