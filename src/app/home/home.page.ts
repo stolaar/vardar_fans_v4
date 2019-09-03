@@ -24,19 +24,25 @@ export class HomePage {
   ) {
     // Get the user from the db
   }
+  ngOnInit() {}
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.storage
       .get("user")
       .then(userData => {
-        this.userService.getUser(userData.uid).subscribe(user => {
+        this.userService.getUser(userData.id).subscribe(user => {
           this.User = user;
         });
-        this.eventsService.getEvent(userData.uid).subscribe(event => {
-          this.Event = event;
+        this.eventsService.getEvents().subscribe(event => {
+          console.log(event);
+          this.Event = event[0];
         });
       })
       .catch(err => console.log(err.message));
+  }
+
+  subscribeToEvent() {
+    this.eventsService.subscribeToEvent(this.Event, this.User);
   }
 
   logout() {

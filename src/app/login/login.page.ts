@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
       if (loginResult) {
         this.storage.set("user", {
           email: loginResult.user.email,
-          uid: loginResult.user.uid
+          id: loginResult.user.uid
         });
         this.navCtrl.navigateRoot("home");
       }

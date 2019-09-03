@@ -78,7 +78,7 @@ export class UsersService {
       );
   }
 
-  addUser(user: User): Promise<void> {
+  addUser(user: any): Promise<void> {
     return this.usersCollection.doc(user.id).set(user);
   }
 

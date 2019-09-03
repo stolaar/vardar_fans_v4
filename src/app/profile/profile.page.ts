@@ -4,7 +4,7 @@ import Event from "src/models/Event";
 import { UsersService } from "../services/users.service";
 import { EventsService } from "../services/events.service";
 import { Storage } from "@ionic/storage";
-import { ToastController } from "@ionic/angular";
+import { ToastController, NavController } from "@ionic/angular";
 
 @Component({
   selector: "app-profile",
@@ -17,16 +17,18 @@ export class ProfilePage implements OnInit {
 
   constructor(
     private storage: Storage,
+    private navController: NavController,
     private userService: UsersService,
     private eventsService: EventsService,
     public toastController: ToastController
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  ionViewDidEnter() {
     this.storage
       .get("user")
       .then(userData => {
-        this.userService.getUser(userData.uid).subscribe(user => {
+        this.userService.getUser(userData.id).subscribe(user => {
           this.User = user;
         });
       })

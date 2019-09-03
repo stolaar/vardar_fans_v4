@@ -41,7 +41,11 @@
           <ion-icon name="list" slot="start"></ion-icon>
           <ion-label>12 are going</ion-label>
         </ion-item>
-        <ion-button fill="outline" color="danger" slot="start"
+        <ion-button
+          (click)="subscribeToEvent()"
+          fill="outline"
+          color="danger"
+          slot="start"
           >Apply</ion-button
         >
       </ion-card-content>

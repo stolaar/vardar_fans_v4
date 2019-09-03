@@ -37,6 +37,27 @@ export class AuthService {
     }
   }
 
+  async approveRegistration(user: any) {
+    try {
+      const { username, userID, password } = user;
+      const result = await this.afAuth.auth.createUserWithEmailAndPassword(
+        username,
+        password
+      );
+      this.userService.deleteUserRequest(user.id);
+      user.password = null;
+      user.id = result.user.uid;
+      await this.userService.addUser({
+        username: username,
+        userID,
+        ...user
+      });
+      return true;
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
   /* async registerAdmin(user: any) {
     try {
       const { username, userID, password } = user;
