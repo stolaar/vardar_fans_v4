@@ -6,6 +6,7 @@ import User from "src/models/User";
 import Event from "src/models/Event";
 import { UsersService } from "../services/users.service";
 import { EventsService } from "../services/events.service";
+import { FeedbackService } from "../services/feedback.service";
 
 @Component({
   selector: "app-home",
@@ -20,7 +21,8 @@ export class HomePage {
     private storage: Storage,
     private navCtrl: NavController,
     private eventsService: EventsService,
-    private userService: UsersService
+    private userService: UsersService,
+    private feedbackService: FeedbackService
   ) {
     // Get the user from the db
   }
@@ -42,7 +44,9 @@ export class HomePage {
   }
 
   subscribeToEvent() {
-    this.eventsService.subscribeToEvent(this.Event, this.User);
+    this.feedbackService.presentAlertConfirm(() =>
+      this.eventsService.subscribeToEvent(this.Event, this.User)
+    );
   }
 
   logout() {

@@ -9,6 +9,7 @@ import {
   DocumentReference
 } from "@angular/fire/firestore";
 import { map, take } from "rxjs/operators";
+import { FeedbackService } from "./feedback.service";
 
 @Injectable({
   providedIn: "root"
@@ -17,7 +18,10 @@ export class EventsService {
   private events: Observable<Event[]>;
   private eventsCollection: AngularFirestoreCollection<Event>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+    private feedbackService: FeedbackService
+  ) {
     this.eventsCollection = this.afs.collection<Event>("events");
 
     this.events = this.eventsCollection.snapshotChanges().pipe(
@@ -55,7 +59,10 @@ export class EventsService {
   async subscribeToEvent(event: any, user: any) {
     try {
       const usersGoing = event.usersGoing ? [...event.usersGoing] : [];
-      usersGoing.push(user);
+      usersGoing.filter(userGoing => userGoing.id === user.id).length < 1
+        ? usersGoing.push(user) &&
+          this.feedbackService.showToastMessage("You are added to the list")
+        : this.feedbackService.showToastMessage("You are already going");
       await this.eventsCollection.doc(event.id).update({ usersGoing });
     } catch (err) {
       console.log(err.message);
