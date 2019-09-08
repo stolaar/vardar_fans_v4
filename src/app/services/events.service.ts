@@ -17,7 +17,7 @@ import { FeedbackService } from "./feedback.service";
 export class EventsService {
   private events: Observable<Event[]>;
   private eventsCollection: AngularFirestoreCollection<Event>;
-
+  private eventSubscribers: any;
   constructor(
     private afs: AngularFirestore,
     private feedbackService: FeedbackService
@@ -59,6 +59,7 @@ export class EventsService {
   async subscribeToEvent(event: any, user: any) {
     try {
       const usersGoing = event.usersGoing ? [...event.usersGoing] : [];
+      this.eventSubscribers = usersGoing;
       usersGoing.filter(userGoing => userGoing.id === user.id).length < 1
         ? usersGoing.push(user) &&
           this.feedbackService.showToastMessage("You are added to the list")
@@ -67,5 +68,15 @@ export class EventsService {
     } catch (err) {
       console.log(err.message);
     }
+  }
+
+  async getEventSubscribers(event: any) {
+    this.eventSubscribers = event.usersGoing ? [...event.usersGoing] : [];
+    console.log(this.eventSubscribers);
+    return this.eventSubscribers;
+  }
+
+  showEventSubscribers() {
+    return this.eventSubscribers;
   }
 }

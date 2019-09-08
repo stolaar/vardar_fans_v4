@@ -37,9 +37,20 @@
           <ion-icon name="pricetag" slot="start"></ion-icon>
           <ion-label>{{ Event?.price }}</ion-label>
         </ion-item>
-        <ion-item href="#" class="activated">
+        <ion-item (click)="subscribedUsersList()" class="activated">
           <ion-icon name="list" slot="start"></ion-icon>
-          <ion-label>12 are going</ion-label>
+          <ion-label
+            >{{ usersGoingCount }}
+            {{
+              usersGoingCount < 1
+                ? ""
+                : usersGoingCount === 1
+                ? "user is going"
+                : usersGoing === undefined
+                ? ""
+                : "users are going"
+            }}</ion-label
+          >
         </ion-item>
         <ion-button
           (click)="subscribeToEvent()"

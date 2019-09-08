@@ -29,7 +29,8 @@ const routes: Routes = [
     path: "user-requests",
     loadChildren: "./user-requests/user-requests.module#UserRequestsPageModule",
     canActivate: [AuthGuardService]
-  }
+  },
+  { path: 'subscribed-users', loadChildren: './subscribed-users/subscribed-users.module#SubscribedUsersPageModule' }
 ];
 
 @NgModule({

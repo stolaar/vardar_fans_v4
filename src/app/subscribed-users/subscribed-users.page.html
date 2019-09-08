@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title class="ion-text-center">Users going</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <!-- prettier-ignore -->
+    <ion-item *ngFor="let user of (eventSubscribers)">
+        <ion-avatar slot="start">
+            <img src="../../assets/avatar.png" />
+          </ion-avatar>
+      <ion-label>
+        <h2>{{ user.name }}</h2>
+        <h3>{{user.username}}</h3>
+        <p>{{user.userID}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

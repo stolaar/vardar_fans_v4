@@ -16,6 +16,7 @@ import { FeedbackService } from "../services/feedback.service";
 export class HomePage {
   User = {} as User;
   Event = {} as Event;
+  private usersGoingCount: any;
 
   constructor(
     private storage: Storage,
@@ -38,6 +39,9 @@ export class HomePage {
         this.eventsService.getEvents().subscribe(event => {
           console.log(event);
           this.Event = event[0];
+          this.usersGoingCount = event[0].usersGoing
+            ? event[0].usersGoing.length
+            : 0;
         });
       })
       .catch(err => console.log(err.message));
@@ -47,6 +51,12 @@ export class HomePage {
     this.feedbackService.presentAlertConfirm(() =>
       this.eventsService.subscribeToEvent(this.Event, this.User)
     );
+  }
+
+  subscribedUsersList() {
+    this.eventsService.getEventSubscribers(this.Event).then(() => {
+      this.navCtrl.navigateRoot("subscribed-users");
+    });
   }
 
   logout() {
