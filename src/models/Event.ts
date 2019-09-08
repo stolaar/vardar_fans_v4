@@ -7,5 +7,8 @@ interface Event {
   price: string;
   place?: string;
   usersGoing: Array<User>;
+  show?: boolean;
+  usersGoingCount?: number;
+  expired?: boolean;
 }
 export default Event;

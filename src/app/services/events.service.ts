@@ -52,8 +52,8 @@ export class EventsService {
       );
   }
 
-  addEvent(event: Event, id: string): Promise<void> {
-    return this.eventsCollection.doc(id).set(event);
+  addEvent(event: Event, id: string): Promise<DocumentReference> {
+    return this.eventsCollection.add(event);
   }
 
   async subscribeToEvent(event: any, user: any) {
@@ -74,6 +74,9 @@ export class EventsService {
     this.eventSubscribers = event.usersGoing ? [...event.usersGoing] : [];
     console.log(this.eventSubscribers);
     return this.eventSubscribers;
+  }
+  deleteEvent(id: any) {
+    return this.eventsCollection.doc(id).delete();
   }
 
   showEventSubscribers() {

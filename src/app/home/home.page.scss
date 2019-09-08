@@ -1,1 +1,36 @@
+.toolbar-container {
+  --border-top-left-radius: 0;
+  --border-top-right-radius: 0;
+  --border-bottom-left-radius: 20px;
+  --border-bottom-right-radius: 15px;
 
+  --border-radius: var(--border-top-left-radius) var(--border-top-right-radius)
+    var(--border-bottom-right-radius) var(--border-bottom-left-radius);
+}
+
+.events-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+ion-card {
+  border-radius: 10px;
+}
+.card-bg img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.8;
+}
+
+.first-item {
+  border-radius: 10px 10px 0 0;
+}
+.last-item {
+  border-radius: 0 0 10px 10px;
+}
+ion-button.apply-btn {
+  margin-top: 15px;
+}

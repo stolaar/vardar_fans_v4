@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title class="ion-text-center">
-      {{ User.name ? User.name : User.username }}
+      Events
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
@@ -16,63 +16,90 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding color="dark">
+  <ion-title class="ion-text-right ion-text-uppercase events-title"
+    >Seha liga '19</ion-title
+  >
   <div class="ion-padding">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Upcoming event</ion-card-subtitle>
-        <ion-card-title>{{ Event?.matchup }}</ion-card-title>
+    <ion-card-subtitle color="light">Upcoming events</ion-card-subtitle>
+    <ion-card *ngFor="let event of events; let i = index">
+      <ion-card-header class="card-bg" (click)="showEvent(i)">
+        <img src="../../assets/card-header.jpg" />
+        <ion-card-subtitle color="light">{{ event?.date }} </ion-card-subtitle>
+        <ion-card-title color="light">{{ event?.matchup }}</ion-card-title>
       </ion-card-header>
 
-      <ion-card-content>
-        <ion-item href="#" class="activated">
+      <ion-card-content *ngIf="event.show">
+        <ion-item class="activated first-item">
           <ion-icon name="calendar" slot="start"></ion-icon>
-          <ion-label>{{ Event?.date }}</ion-label>
+          <ion-label>{{ event.date }}</ion-label>
         </ion-item>
-        <ion-item href="#" class="activated">
+        <ion-item class="activated">
           <ion-icon name="clock" slot="start"></ion-icon>
-          <ion-label>{{ Event?.time }}</ion-label>
+          <ion-label>{{ event.time }}</ion-label>
         </ion-item>
-        <ion-item href="#" class="activated">
+        <ion-item class="activated">
           <ion-icon name="pricetag" slot="start"></ion-icon>
-          <ion-label>{{ Event?.price }}</ion-label>
+          <ion-label>{{ event.price }}</ion-label>
         </ion-item>
-        <ion-item (click)="subscribedUsersList()" class="activated">
+        <ion-item
+          (click)="subscribedUsersList(event)"
+          class="activated  last-item"
+        >
           <ion-icon name="list" slot="start"></ion-icon>
           <ion-label
-            >{{ usersGoingCount }}
+            >{{ event.usersGoingCount === 0 ? "" : event.usersGoingCount }}
             {{
-              usersGoingCount < 1
+              event.usersGoingCount < 1
+                ? event.expired
+                  ? "No users went"
+                  : "No users yet"
+                : event.usersGoingCount === 1
+                ? event.expired
+                  ? "user went"
+                  : "user is going"
+                : event.usersGoing === undefined
                 ? ""
-                : usersGoingCount === 1
-                ? "user is going"
-                : usersGoing === undefined
-                ? ""
+                : event.expired
+                ? "users went"
                 : "users are going"
             }}</ion-label
           >
         </ion-item>
         <ion-button
-          (click)="subscribeToEvent()"
-          fill="outline"
+          *ngIf="!event.expired"
+          class="apply-btn"
+          (click)="subscribeToEvent(event)"
+          fill="solid"
           color="danger"
           slot="start"
           >Apply</ion-button
         >
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-      <ion-item>
-        <ion-icon name="pin" slot="start"></ion-icon>
-        <ion-label>T'ga za jug</ion-label>
-        <ion-button fill="clear" slot="end">View</ion-button>
-      </ion-item>
-
-      <ion-card-content>
-        This is content, without any paragraph or header tags, within an
-        ion-card-content element.
+        <ion-item color="transparent" *ngIf="event.expired">
+          <ion-text slot="end" color="danger">Event is expired</ion-text>
+        </ion-item>
       </ion-card-content>
     </ion-card>
   </div>
 </ion-content>
+<ion-footer>
+  <ion-toolbar class="ion-text-center" color="dark">
+    <ion-button fill="clear" color="light">
+      &copy; Made by
+    </ion-button>
+    <ion-button
+      href="https://facebook.com/aleksandar.stolik"
+      fill="clear"
+      color="light"
+    >
+      <ion-icon name="logo-facebook"></ion-icon>
+    </ion-button>
+    <ion-button
+      fill="clear"
+      color="light"
+      href="https://www.linkedin.com/in/aleksandar-stolikj-5bb68815b/"
+    >
+      <ion-icon name="logo-linkedin"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

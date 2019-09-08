@@ -17,6 +17,7 @@ export class HomePage {
   User = {} as User;
   Event = {} as Event;
   private usersGoingCount: any;
+  private events: Event[];
 
   constructor(
     private storage: Storage,
@@ -37,26 +38,34 @@ export class HomePage {
           this.User = user;
         });
         this.eventsService.getEvents().subscribe(event => {
-          console.log(event);
-          this.Event = event[0];
-          this.usersGoingCount = event[0].usersGoing
-            ? event[0].usersGoing.length
-            : 0;
+          this.events = event;
+          this.events.forEach(event => {
+            event.expired = new Date(event.date).getTime() < Date.now();
+            new Date(event.date).getTime() < Date.now() - 259200 * 1000 &&
+              this.eventsService.deleteEvent(event.id);
+            event.usersGoingCount = event.usersGoing
+              ? event.usersGoing.length
+              : 0;
+          });
         });
       })
       .catch(err => console.log(err.message));
   }
 
-  subscribeToEvent() {
+  subscribeToEvent(event: any) {
     this.feedbackService.presentAlertConfirm(() =>
-      this.eventsService.subscribeToEvent(this.Event, this.User)
+      this.eventsService.subscribeToEvent(event, this.User)
     );
   }
 
-  subscribedUsersList() {
-    this.eventsService.getEventSubscribers(this.Event).then(() => {
+  subscribedUsersList(event: any) {
+    this.eventsService.getEventSubscribers(event).then(() => {
       this.navCtrl.navigateRoot("subscribed-users");
     });
+  }
+
+  showEvent(index: any) {
+    this.events[index].show = !this.events[index].show;
   }
 
   logout() {
