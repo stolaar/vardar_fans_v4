@@ -13,18 +13,18 @@ export class FeedbackService {
   async showToastMessage(message: any) {
     const toast = await this.toastController.create({
       message,
-      duration: 2000
+      duration: 5000
     });
     toast.present();
   }
 
-  async presentAlertConfirm(callback) {
+  async presentAlertConfirm(heading, subheading, callback) {
     const alert = await this.alertController.create({
-      header: "Confirm!",
-      message: "Would you like to subscribe to this event?",
+      header: heading,
+      message: subheading,
       buttons: [
         {
-          text: "Cancel",
+          text: "Не",
           role: "cancel",
           cssClass: "secondary",
           handler: blah => {
@@ -32,7 +32,7 @@ export class FeedbackService {
           }
         },
         {
-          text: "Going",
+          text: "Да",
           handler: () => {
             callback();
           }

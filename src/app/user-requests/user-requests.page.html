@@ -3,14 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Users</ion-title>
+    <ion-title class="ion-text-center">Корисници</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     <ion-list-header>
-      Recent requests
+      Барања за регистрација
     </ion-list-header>
     <!-- prettier-ignore -->
     <ion-item-sliding *ngFor="let requestedUser of (requestedUsers | async)">
@@ -34,7 +34,7 @@
 
   <ion-list>
     <ion-list-header>
-      Users
+      Корисници
     </ion-list-header>
     <!-- prettier-ignore -->
     <ion-item *ngFor="let user of (users | async)">
@@ -44,7 +44,7 @@
       <ion-label>
         <h2>{{ user.name }}</h2>
         <h3>{{ user.username }}</h3>
-        <p>With user ID {{ user.userID }}</p>
+        <p>Реден број: {{ user.userID }}</p>
       </ion-label>
     </ion-item>
   </ion-list>

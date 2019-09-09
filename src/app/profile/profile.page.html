@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Profile</ion-title>
+    <ion-title class="ion-text-center">Профил</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -32,17 +32,17 @@
   <ion-item [routerLink]="['/user-requests']" *ngIf="User.role === 'admin'">
     <ion-icon slot="start" name="settings"> </ion-icon>
     <ion-label>
-      Check users
+      Корисници
     </ion-label>
   </ion-item>
 
   <ion-card *ngIf="User.role === 'admin'">
     <ion-card-header>
-      <ion-card-subtitle>Create event</ion-card-subtitle>
+      <ion-card-subtitle>Креирај настан</ion-card-subtitle>
       <ion-card-title>
         <ion-item>
           <ion-input
-            placeholder="Matchup"
+            placeholder="Наслов на натпреварот"
             type="text"
             [(ngModel)]="Event.matchup"
           ></ion-input>
@@ -61,7 +61,7 @@
         <ion-icon name="clock" slot="start"></ion-icon>
         <ion-item>
           <ion-input
-            placeholder="Time"
+            placeholder="Време"
             type="text"
             [(ngModel)]="Event.time"
           ></ion-input>
@@ -71,7 +71,7 @@
         <ion-icon name="pricetag" slot="start"></ion-icon>
         <ion-item>
           <ion-input
-            placeholder="Price"
+            placeholder="Цена"
             type="text"
             [(ngModel)]="Event.price"
           ></ion-input>
@@ -81,7 +81,7 @@
         <ion-icon name="pin" slot="start"></ion-icon>
         <ion-item>
           <ion-input
-            placeholder="Restaurant/Bar"
+            placeholder="Ресторан/Бар"
             type="text"
             [(ngModel)]="Event.place"
           ></ion-input>
@@ -93,7 +93,7 @@
         color="danger"
         slot="start"
         (click)="addEvent()"
-        >Submit</ion-button
+        >Креирај</ion-button
       >
     </ion-card-content>
   </ion-card>

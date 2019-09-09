@@ -55,19 +55,21 @@ export class HomePage {
   }
 
   subscribeToEvent(event: any) {
-    this.feedbackService.presentAlertConfirm(() =>
-      this.eventsService.subscribeToEvent(event, this.User)
+    this.feedbackService.presentAlertConfirm(
+      "Потврди!",
+      "Дали ќе присуствуваш на настанот?",
+      () => this.eventsService.subscribeToEvent(event, this.User)
     );
   }
 
   subscribedUsersList(event: any) {
-    this.eventsService.getEventSubscribers(event).then(() => {
-      this.router.navigate(["subscribed-users"], {
-        queryParams: {
-          event: JSON.stringify(event)
-        }
-      });
+    //this.eventsService.getEventSubscribers(event).then(() => {
+    this.router.navigate(["subscribed-users"], {
+      queryParams: {
+        event: JSON.stringify(event)
+      }
     });
+    // });
   }
 
   showEvent(index: any) {
@@ -75,8 +77,14 @@ export class HomePage {
   }
 
   logout() {
-    this.storage.remove("user").then(() => {
-      this.navCtrl.navigateRoot("login");
-    });
+    this.feedbackService.presentAlertConfirm(
+      "Одјави се",
+      "Сигурен си дека сакаш да се одјавиш?",
+      () => {
+        this.storage.remove("user").then(() => {
+          this.navCtrl.navigateRoot("login");
+        });
+      }
+    );
   }
 }

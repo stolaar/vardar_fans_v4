@@ -1,29 +1,29 @@
 <ion-header>
   <ion-toolbar color="danger">
-    <ion-title class="ion-text-center">Login</ion-title>
+    <ion-title class="ion-text-center">Најави се </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label position="floating">Username</ion-label>
+      <ion-label position="floating">Е-маил</ion-label>
       <ion-input type="text" [(ngModel)]="User.username"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">Лозинка</ion-label>
       <ion-input type="password" [(ngModel)]="User.password"></ion-input>
     </ion-item>
 
     <ion-button color="danger" expand="block" fill="solid" (click)="login()"
-      >Login</ion-button
+      >Најави се</ion-button
     >
     <ion-button
       color="dark"
       expand="block"
       fill="outline"
       (click)="pushRegisterPage()"
-      >Register</ion-button
+      >Регистрирај се</ion-button
     >
   </ion-list>
 </ion-content>

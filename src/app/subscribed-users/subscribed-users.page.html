@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Users going</ion-title>
+    <ion-title class="ion-text-center">Ќе присуствуваат</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +19,7 @@
         <h2>{{ user.name }}</h2>
         <h3>{{user.username}}</h3>
         <p>{{user.userID}}</p>
-        <p>Has paid: {{user.hasPaid ? "Yes" : "No"}}</p>
+        <p *ngIf="User.role === 'admin'">Карта: {{user.hasPaid ? "Платена" : "Неплатена"}}</p>
       </ion-label>
       </ion-item>
       <ion-item-options side="end">

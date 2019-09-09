@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import User from "../../models/User";
 import { AuthService } from "../services/auth.service";
 import { NavController } from "@ionic/angular";
+import { FeedbackService } from "../services/feedback.service";
 
 @Component({
   selector: "app-register",
@@ -11,6 +12,7 @@ import { NavController } from "@ionic/angular";
 export class RegisterPage implements OnInit {
   User = {} as User;
   constructor(
+    private feedbackService: FeedbackService,
     private authService: AuthService,
     private navCtrl: NavController
   ) {}
@@ -26,6 +28,9 @@ export class RegisterPage implements OnInit {
           password,
           userID
         }));
+      this.feedbackService.showToastMessage(
+        "Админот ќе го разгледа барањето за регистрација и ќе ви испрати е-маил со потврда"
+      );
       this.navCtrl.navigateRoot("login");
     } catch (err) {
       console.log(err.message);

@@ -13,9 +13,10 @@ import { Observable } from "rxjs";
   styleUrls: ["./subscribed-users.page.scss"]
 })
 export class SubscribedUsersPage implements OnInit {
-  private eventSubscribers: any;
+  private eventSubscribers: User[];
   User = {} as User;
   private event: Observable<Event>;
+  private eventId: any;
 
   constructor(
     private eventService: EventsService,
@@ -24,10 +25,11 @@ export class SubscribedUsersPage implements OnInit {
     private router: Router,
     private userService: UsersService
   ) {
-    this.eventSubscribers = this.eventService.showEventSubscribers();
+    //this.eventSubscribers = this.eventService.showEventSubscribers();
     this.route.queryParams.subscribe(params => {
       if (params && params.event) {
         this.event = this.eventService.getEvent(JSON.parse(params.event).id);
+        this.eventId = JSON.parse(params.event).id;
       }
     });
   }
@@ -37,11 +39,22 @@ export class SubscribedUsersPage implements OnInit {
         this.User = user;
       });
     });
-    this.eventSubscribers = this.eventService.showEventSubscribers();
+    this.event.subscribe(data => {
+      this.eventSubscribers = data.usersGoing;
+    });
+    //this.eventSubscribers = this.eventService.showEventSubscribers();
   }
 
   updateUserGoing(userIndex: any, hasPaid: any) {
-    this.eventService.updateUserGoing(this.event, userIndex, hasPaid);
+    /*this.event.subscribe(data => {
+      this.eventData = data;
+    }); */
+    this.eventService.updateUserGoing(
+      this.eventSubscribers,
+      this.eventId,
+      userIndex,
+      hasPaid
+    );
   }
 
   ngOnInit() {}

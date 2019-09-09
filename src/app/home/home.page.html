@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title class="ion-text-center">
-      Events
+      Настани
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
@@ -18,13 +18,13 @@
 
 <ion-content padding color="dark">
   <ion-title class="ion-text-right ion-text-uppercase events-title"
-    >Seha liga '19</ion-title
+    >Сеха лига '19</ion-title
   >
   <div class="ion-padding">
-    <ion-card-subtitle color="light">Upcoming events</ion-card-subtitle>
+    <ion-card-subtitle color="light">Следни настани</ion-card-subtitle>
     <ion-card *ngFor="let event of events; let i = index">
       <ion-card-header class="card-bg" (click)="showEvent(i)">
-        <img src="../../assets/card-header.jpg" />
+        <img src="../../assets/card-header.png" />
         <ion-card-subtitle color="light">{{ event?.date }} </ion-card-subtitle>
         <ion-card-title color="light">{{ event?.matchup }}</ion-card-title>
       </ion-card-header>
@@ -52,17 +52,17 @@
             {{
               event.usersGoingCount < 1
                 ? event.expired
-                  ? "No users went"
-                  : "No users yet"
+                  ? "Ниеден корисник не присуствувал"
+                  : "Сѐ уште нема пријавени"
                 : event.usersGoingCount === 1
                 ? event.expired
-                  ? "user went"
-                  : "user is going"
+                  ? "корисник присуствувал"
+                  : "корисник ќе присуствува"
                 : event.usersGoing === undefined
                 ? ""
                 : event.expired
-                ? "users went"
-                : "users are going"
+                ? "корисници присуствувале"
+                : "корисници ќе присуствуваат"
             }}</ion-label
           >
         </ion-item>
@@ -76,7 +76,7 @@
           >Apply</ion-button
         >
         <ion-item color="transparent" *ngIf="event.expired">
-          <ion-text slot="end" color="danger">Event is expired</ion-text>
+          <ion-text slot="end" color="danger">Настанот е завршен</ion-text>
         </ion-item>
       </ion-card-content>
     </ion-card>

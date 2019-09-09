@@ -62,8 +62,8 @@ export class EventsService {
       this.eventSubscribers = usersGoing;
       usersGoing.filter(userGoing => userGoing.id === user.id).length < 1
         ? usersGoing.push(user) &&
-          this.feedbackService.showToastMessage("You are added to the list")
-        : this.feedbackService.showToastMessage("You are already going");
+          this.feedbackService.showToastMessage("Потврдено")
+        : this.feedbackService.showToastMessage("Присуството е веќе потврдено");
       await this.eventsCollection.doc(event.id).update({ usersGoing });
     } catch (err) {
       console.log(err.message);
@@ -72,21 +72,24 @@ export class EventsService {
 
   async getEventSubscribers(event: any) {
     this.eventSubscribers = event.usersGoing ? [...event.usersGoing] : [];
-    console.log(this.eventSubscribers);
     return this.eventSubscribers;
   }
   deleteEvent(id: any) {
     return this.eventsCollection.doc(id).delete();
   }
 
-  async updateUserGoing(event: any, userIndex: any, hasPaid: any) {
-    console.log(event);
-    const usersGoing = event.usersGoing ? [...event.usersGoing] : [];
-    usersGoing[userIndex]["hasPaid"] = hasPaid;
-    await this.eventsCollection.doc(event.id).update({ usersGoing });
-  }
-
-  showEventSubscribers() {
-    return this.eventSubscribers;
+  async updateUserGoing(
+    usersGoing,
+    eventId: any,
+    userIndex: any,
+    hasPaid: any
+  ) {
+    try {
+      usersGoing[userIndex].hasPaid = hasPaid;
+      await this.eventsCollection.doc(eventId).update({ usersGoing });
+      return usersGoing;
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 }
