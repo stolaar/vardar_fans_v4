@@ -86,10 +86,6 @@ export class UsersService {
     return this.requestedUsersCollection.add(user);
   }
 
-  updateID(user: User): Promise<void> {
-    return this.usersCollection.doc(user.id).update({ userID: user.userID });
-  }
-
   deleteUserRequest(id: string): Promise<void> {
     return this.requestedUsersCollection.doc(id).delete();
   }

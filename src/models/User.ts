@@ -6,5 +6,6 @@ interface User {
   confirmPassword?: string;
   userID: number;
   role?: string;
+  hasPaid?: boolean;
 }
 export default User;

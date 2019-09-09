@@ -79,6 +79,13 @@ export class EventsService {
     return this.eventsCollection.doc(id).delete();
   }
 
+  async updateUserGoing(event: any, userIndex: any, hasPaid: any) {
+    console.log(event);
+    const usersGoing = event.usersGoing ? [...event.usersGoing] : [];
+    usersGoing[userIndex]["hasPaid"] = hasPaid;
+    await this.eventsCollection.doc(event.id).update({ usersGoing });
+  }
+
   showEventSubscribers() {
     return this.eventSubscribers;
   }

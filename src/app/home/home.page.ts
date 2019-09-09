@@ -7,6 +7,7 @@ import Event from "src/models/Event";
 import { UsersService } from "../services/users.service";
 import { EventsService } from "../services/events.service";
 import { FeedbackService } from "../services/feedback.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -22,6 +23,7 @@ export class HomePage {
   constructor(
     private storage: Storage,
     private navCtrl: NavController,
+    private router: Router,
     private eventsService: EventsService,
     private userService: UsersService,
     private feedbackService: FeedbackService
@@ -60,7 +62,11 @@ export class HomePage {
 
   subscribedUsersList(event: any) {
     this.eventsService.getEventSubscribers(event).then(() => {
-      this.navCtrl.navigateRoot("subscribed-users");
+      this.router.navigate(["subscribed-users"], {
+        queryParams: {
+          event: JSON.stringify(event)
+        }
+      });
     });
   }
 
