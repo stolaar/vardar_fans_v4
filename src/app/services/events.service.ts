@@ -70,6 +70,19 @@ export class EventsService {
     }
   }
 
+  async unsubscribeFromEvent(event: any, user: any) {
+    try {
+      const usersGoing = event.usersGoing ? [...event.usersGoing] : [];
+      this.eventSubscribers = usersGoing;
+      const userIndex = usersGoing.findIndex(usr => user.id === usr.id);
+      usersGoing.splice(userIndex, 1);
+
+      await this.eventsCollection.doc(event.id).update({ usersGoing });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
   async getEventSubscribers(event: any) {
     this.eventSubscribers = event.usersGoing ? [...event.usersGoing] : [];
     return this.eventSubscribers;

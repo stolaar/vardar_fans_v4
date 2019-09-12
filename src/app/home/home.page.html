@@ -67,13 +67,22 @@
           >
         </ion-item>
         <ion-button
-          *ngIf="!event.expired"
+          *ngIf="!event.expired && !isCurrentUserGoing(event.usersGoing)"
           class="apply-btn"
           (click)="subscribeToEvent(event)"
           fill="solid"
           color="danger"
           slot="start"
-          >Apply</ion-button
+          >Потврди</ion-button
+        >
+        <ion-button
+          *ngIf="!event.expired && isCurrentUserGoing(event.usersGoing)"
+          class="apply-btn"
+          (click)="unsubscribeFromEvent(event)"
+          fill="clear"
+          color="danger"
+          slot="start"
+          >Откажи</ion-button
         >
         <ion-item color="transparent" *ngIf="event.expired">
           <ion-text slot="end" color="danger">Настанот е завршен</ion-text>

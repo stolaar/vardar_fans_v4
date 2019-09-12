@@ -20,7 +20,6 @@ export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription;
   private usersGoingCount: any;
   private events: any;
-
   constructor(
     private storage: Storage,
     private navCtrl: NavController,
@@ -72,6 +71,21 @@ export class HomePage implements OnInit, OnDestroy {
       "Дали ќе присуствуваш на настанот?",
       () => this.eventsService.subscribeToEvent(event, this.User)
     );
+  }
+  unsubscribeFromEvent(event: any) {
+    this.feedbackService.presentAlertConfirm(
+      "Потврди!",
+      "Дали сакаш да го откажеш присуството?",
+      () => this.eventsService.unsubscribeFromEvent(event, this.User)
+    );
+  }
+
+  isCurrentUserGoing(usersGoing: any) {
+    return usersGoing
+      ? usersGoing.filter(user => this.User.id === user.id)[0]
+        ? true
+        : false
+      : false;
   }
 
   subscribedUsersList(event: any) {
