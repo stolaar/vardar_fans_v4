@@ -19,22 +19,33 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {}
 
-  async register() {
-    const { username, password, confirmPassword, userID }: any = this.User;
-    try {
-      password === confirmPassword &&
-        (await this.authService.register({
+  register() {
+    const {
+      username,
+      password,
+      confirmPassword,
+      userID,
+      name
+    }: any = this.User;
+
+    if (password === confirmPassword) {
+      this.authService
+        .register({
           username: username.trim(),
           password,
-          userID
-        }));
-      this.feedbackService.showToastMessage(
-        "Админот ќе го разгледа барањето за регистрација и ќе ви испрати е-маил со потврда"
-      );
-      this.navCtrl.navigateRoot("login");
-    } catch (err) {
-      console.log(err.message);
-    }
+          userID,
+          name
+        })
+        .then(message => {
+          message && this.feedbackService.showToastMessage(message);
+          message && this.navCtrl.navigateRoot("login");
+          throw !message && new Error("Настана грешка");
+        })
+        .catch(err => {
+          this.feedbackService.showToastMessage(err.message);
+        });
+    } else
+      return this.feedbackService.showToastMessage("Лозинките не се совпаѓаат");
   }
 
   pushLoginPage() {

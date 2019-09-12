@@ -17,7 +17,7 @@ export class AuthService {
   async login(username, password) {
     try {
       return await this.afAuth.auth.signInWithEmailAndPassword(
-        username.trim() + "@vardarfans.com",
+        username.trim(),
         password
       );
     } catch (err) {
@@ -40,15 +40,19 @@ export class AuthService {
 
   async register(user: any) {
     try {
-      const { username, userID, password } = user;
-
-      await this.userService.addUserRequest({
-        username: username + "@vardarfans.com",
-        userID,
-        password
-      });
+      const { username, userID, password, name } = user;
+      if (!username.includes("@")) {
+        return false; //"Погрешен е-маил";
+      } else
+        await this.userService.addUserRequest({
+          username: username,
+          userID,
+          password,
+          name
+        });
+      return "Админот ќе го разгледа барањето за регистрација и ќе ви испрати е-маил со потврда";
     } catch (err) {
-      console.log(err.message);
+      return this.feedbackService.showToastMessage(err.message);
     }
   }
 

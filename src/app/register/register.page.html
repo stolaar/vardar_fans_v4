@@ -7,6 +7,10 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
+      <ion-label position="floating">Име</ion-label>
+      <ion-input type="text" [(ngModel)]="User.name"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label position="floating">Е-маил</ion-label>
       <ion-input type="text" [(ngModel)]="User.username"></ion-input>
     </ion-item>
