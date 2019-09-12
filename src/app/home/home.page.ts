@@ -1,7 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { NavController } from "@ionic/angular";
-import { Observable, Subscriber } from "rxjs";
+import { Observable, Subscriber, Subscription } from "rxjs";
 import User from "src/models/User";
 import Event from "src/models/Event";
 import { UsersService } from "../services/users.service";
@@ -14,11 +14,12 @@ import { Router } from "@angular/router";
   templateUrl: "home.page.html",
   styleUrls: ["home.page.scss"]
 })
-export class HomePage {
+export class HomePage implements OnInit, OnDestroy {
   User = {} as User;
   Event = {} as Event;
+  subscription: Subscription;
   private usersGoingCount: any;
-  private events: Event[];
+  private events: any;
 
   constructor(
     private storage: Storage,
@@ -39,19 +40,30 @@ export class HomePage {
         this.userService.getUser(userData.id).subscribe(user => {
           this.User = user;
         });
-        this.eventsService.getEvents().subscribe(event => {
-          this.events = event;
-          this.events.forEach(event => {
-            event.expired = new Date(event.date).getTime() < Date.now();
-            new Date(event.date).getTime() < Date.now() - 259200 * 1000 &&
-              this.eventsService.deleteEvent(event.id);
-            event.usersGoingCount = event.usersGoing
-              ? event.usersGoing.length
-              : 0;
-          });
+        this.subscription = this.eventsService.getEvents().subscribe({
+          complete: () => console.log("completed"),
+          error: () => console.log("error"),
+          next: event => {
+            this.events = event;
+            this.events.forEach(event => {
+              event.expired = new Date(event.date).getTime() < Date.now();
+              new Date(event.date).getTime() < Date.now() - 259200 * 1000 &&
+                this.eventsService.deleteEvent(event.id);
+              event.usersGoingCount = event.usersGoing
+                ? event.usersGoing.length
+                : 0;
+            });
+          }
         });
       })
       .catch(err => console.log(err.message));
+  }
+
+  ionViewDidLeave() {
+    this.subscription.unsubscribe();
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   subscribeToEvent(event: any) {
