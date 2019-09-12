@@ -30,7 +30,8 @@ const routes: Routes = [
     loadChildren: "./user-requests/user-requests.module#UserRequestsPageModule",
     canActivate: [AuthGuardService]
   },
-  { path: 'subscribed-users', loadChildren: './subscribed-users/subscribed-users.module#SubscribedUsersPageModule' }
+  { path: 'subscribed-users', loadChildren: './subscribed-users/subscribed-users.module#SubscribedUsersPageModule' },
+  { path: 'forgot-password', loadChildren: './forgot-password/forgot-password.module#ForgotPasswordPageModule' }
 ];
 
 @NgModule({
